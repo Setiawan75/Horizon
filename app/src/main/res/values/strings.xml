@@ -17,4 +17,10 @@
     <string name="sources">Sources</string>
     <string name="sources_search">Search Sources</string>
     <string name="sources_not_found">Sources Not Found</string>
+
+    <!--Articles-->
+    <string name="articles">Articles</string>
+    <string name="articles_search">Search Articles</string>
+    <string name="articles_publish">Publish :</string>
+    <string name="articles_not_found">Articles Not Found</string>
 </resources>
