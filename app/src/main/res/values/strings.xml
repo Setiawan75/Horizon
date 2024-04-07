@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Horizon</string>
+
+    <!--Category-->
+    <string name="category_title">News Category</string>
+    <string name="category_business">BUSINESS</string>
+    <string name="category_entertainment">ENTERTAINMENT</string>
+    <string name="category_general">GENERAL</string>
+    <string name="category_health">HEALTH</string>
+    <string name="category_science">SCIENCE</string>
+    <string name="category_sports">SPORTS</string>
+    <string name="category_technology">TECHNOLOGY</string>
 </resources>
