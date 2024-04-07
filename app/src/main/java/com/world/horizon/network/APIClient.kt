@@ -15,7 +15,7 @@ object APIClient {
             .addInterceptor(interceptor)
             .build()
         Retrofit.Builder()
-            .baseUrl(Constants.PARAM.BASE_URL)
+            .baseUrl(Constants.API.BASE_URL)
             .client(client)
             .addConverterFactory(GsonConverterFactory.create(GsonBuilder().create()))
             .build()

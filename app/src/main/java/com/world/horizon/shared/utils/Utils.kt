@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Build
 import android.os.Parcelable
+import android.view.View
 import android.widget.Toast
 
 inline fun<reified T: Parcelable> Intent.getParcelableIntent(key: String): T? {
@@ -17,4 +18,9 @@ inline fun<reified T: Parcelable> Intent.getParcelableIntent(key: String): T? {
 
 fun Activity.toastShort(message: String){
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+fun View.setVisible(isVisible: Boolean){
+    if (isVisible) this.visibility = View.VISIBLE
+    else this.visibility = View.GONE
 }

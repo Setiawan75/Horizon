@@ -1,8 +1,11 @@
 package com.world.horizon.network
 
+import com.world.horizon.model.ListSources
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Url
 
-class API {
+interface API {
+    @GET
+    suspend fun getListSources(@Url url: String): Response<ListSources>
 }

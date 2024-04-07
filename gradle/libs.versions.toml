@@ -21,6 +21,7 @@ gson = "2.8.9"
 jackson-databind = "2.13.0"
 glide = "4.11.0"
 compiler = "4.11.0"
+lottie = "6.4.0"
 #1rep = ""
 
 [libraries]
@@ -44,6 +45,7 @@ gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson" }
 jackson-databind = { group = "com.fasterxml.jackson.core", name = "jackson-databind", version.ref = "jackson-databind" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide" }
 compiler = { group = "com.github.bumptech.glide", name = "compiler", version.ref = "compiler" }
+lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie" }
 #1rep = { group = "", name = "1rep", version.ref = "1rep" }
 
 [plugins]

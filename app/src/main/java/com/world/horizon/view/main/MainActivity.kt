@@ -7,7 +7,7 @@ import com.world.horizon.R
 import com.world.horizon.databinding.ActivityMainBinding
 import com.world.horizon.model.Category
 import com.world.horizon.shared.extensions.Constants
-import com.world.horizon.shared.utils.toastShort
+import com.world.horizon.view.sources.SourcesView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvCategory.adapter = mainAdapter
         mainAdapter.setOnItemClickCallback(object : MainAdapter.OnItemClickCallback{
             override fun onItemClicked(category: Category) {
-                toastShort(category.title)
+                startActivity(SourcesView.newIntent(this@MainActivity, category))
             }
 
         })
