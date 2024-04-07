@@ -78,11 +78,10 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvSources"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
                 tools:listitem="@layout/item_sources"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/progressLoadMore"

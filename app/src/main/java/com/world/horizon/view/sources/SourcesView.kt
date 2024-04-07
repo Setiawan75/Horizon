@@ -14,12 +14,12 @@ import com.world.horizon.R
 import com.world.horizon.databinding.ActivitySourcesBinding
 import com.world.horizon.model.Category
 import com.world.horizon.model.Sources
+import com.world.horizon.network.Resource
 import com.world.horizon.shared.extensions.showDialogError
 import com.world.horizon.shared.supportclasses.PaginationScrollListener
 import com.world.horizon.shared.utils.getParcelableIntent
 import com.world.horizon.shared.utils.setVisible
-import com.world.horizon.shared.utils.toastShort
-import com.world.horizon.viewmodel.Resource
+import com.world.horizon.view.articles.ArticlesView
 import com.world.horizon.viewmodel.SourcesViewModel
 
 class SourcesView : AppCompatActivity() {
@@ -86,47 +86,54 @@ class SourcesView : AppCompatActivity() {
             true
         }
 
-        binding.imgClear.setOnClickListener { binding.txtSearch.setText("") }
+        binding.imgClear.setOnClickListener {
+            binding.txtSearch.setText("")
+            search = binding.txtSearch.text.toString()
+            getListSources()
+        }
 
         viewModel.listSources.observe(this) {
-            binding.progressbar.setVisible(false)
+            if (isLoadMore) binding.progressLoadMore.setVisible(false)
+            else binding.progressbar.setVisible(false)
             when(it) {
                 is Resource.Success -> {
-                    nextPage = it.data.size > 99
-                    if (isLoadMore){
-                        sourcesAdapter.addItem(it.data)
-                        isLoadMore = false
-                    }else {
-                        sourcesAdapter = SourcesAdapter(it.data)
-                        binding.rvSources.layoutManager = LinearLayoutManager(this@SourcesView)
-                        binding.rvSources.adapter = sourcesAdapter
+                    if (it.data.isNotEmpty()) {
+                        nextPage = it.data.size > 99
+                        if (isLoadMore) {
+                            sourcesAdapter.addItem(it.data)
+                            isLoadMore = false
+                        } else {
+                            sourcesAdapter = SourcesAdapter(it.data)
+                            binding.rvSources.layoutManager = LinearLayoutManager(this@SourcesView)
+                            binding.rvSources.adapter = sourcesAdapter
 
-                        sourcesAdapter.setOnItemClickCallback(object :
-                            SourcesAdapter.OnItemClickCallback {
-                            override fun onItemClicked(sources: Sources) {
-                                toastShort(sources.name)
+                            sourcesAdapter.setOnItemClickCallback(object :
+                                SourcesAdapter.OnItemClickCallback {
+                                override fun onItemClicked(sources: Sources) {
+                                    startActivity(ArticlesView.newIntent(this@SourcesView, sources))
+                                }
+
+                            })
+
+                            scrollListener = object : PaginationScrollListener() {
+                                override fun onReachBottom() {
+                                    if (!nextPage || viewModel.loadingPage) return
+                                    page += 1
+                                    isLoadMore = true
+                                    getListSources()
+                                }
                             }
 
-                        })
+                            scrollListener.visibleThresholdPercentage = 0.7
 
-                        scrollListener = object : PaginationScrollListener() {
-                            override fun onReachBottom() {
-                                if (!nextPage || viewModel.loadingPage) return
-                                page += 1
-                                isLoadMore = true
-                                getListSources()
-                            }
+                            binding.wrapContent.scrollTo(0, 0)
+                            binding.wrapContent.setOnScrollChangeListener(scrollListener)
                         }
-
-                        scrollListener.visibleThresholdPercentage = 0.7
-
-                        binding.wrapContent.scrollTo(0, 0)
-                        binding.wrapContent.setOnScrollChangeListener(scrollListener)
-                    }
-                    if (sourcesAdapter.dataToShow.isEmpty()) {
-                        binding.lblNotFound.visibility = View.VISIBLE
+                        binding.wrapContent.setVisible(true)
+                        binding.lblNotFound.setVisible(false)
                     }else{
-                        binding.lblNotFound.visibility = View.GONE
+                        binding.wrapContent.setVisible(false)
+                        binding.lblNotFound.setVisible(true)
                     }
                 }
                 is Resource.Failure -> showDialogError("Failed", it.throwable)
@@ -136,7 +143,8 @@ class SourcesView : AppCompatActivity() {
     }
 
     private fun getListSources(){
-        binding.progressbar.setVisible(true)
+        if (isLoadMore) binding.progressLoadMore.setVisible(true)
+        else binding.progressbar.setVisible(true)
         viewModel.getListSources(category.category, page.toString(), search)
     }
 }

@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.world.horizon.model.Sources
 import com.world.horizon.network.APIClient
+import com.world.horizon.network.Resource
 import com.world.horizon.shared.extensions.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -46,9 +47,4 @@ class SourcesViewModel: ViewModel() {
             }
         }
     }
-}
-
-sealed class Resource<out T> {
-    data class Success<out T>(val data: T) : Resource<T>()
-    data class Failure<out T>(val throwable: String) : Resource<T>()
 }

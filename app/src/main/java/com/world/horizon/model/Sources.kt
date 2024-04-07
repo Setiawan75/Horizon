@@ -1,5 +1,9 @@
 package com.world.horizon.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Sources(
     var id: String = "",
     var name: String = "",
@@ -8,6 +12,6 @@ data class Sources(
     var category: String = "",
     var languange: String = "",
     var country: String = "",
-)
+) : Parcelable
 
 data class ListSources(val sources: ArrayList<Sources>)
