@@ -15,10 +15,15 @@
         android:theme="@style/Theme.Horizon"
         tools:targetApi="31">
         <activity
-            android:name=".view.articles.ArticlesView"
+            android:name=".view.articles.WebArticlesView"
             android:exported="false"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
+        <activity
+            android:name=".view.articles.ArticlesView"
+            android:exported="false"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".view.sources.SourcesView"
             android:exported="false"

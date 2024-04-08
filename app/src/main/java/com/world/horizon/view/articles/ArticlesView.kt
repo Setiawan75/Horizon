@@ -125,8 +125,9 @@ class ArticlesView : AppCompatActivity() {
                         binding.lblNotFound.setVisible(false)
                         articlesAdapter.setOnItemClickCallback(object :
                             ArticlesAdapter.OnItemClickCallback {
-                            override fun onItemClicked(articles: Article) {
-    //                                startActivity()
+                            override fun onItemClicked(article: Article) {
+                                article.name = sources.name
+                                startActivity(WebArticlesView.newIntent(this@ArticlesView, article))
                             }
 
                         })
